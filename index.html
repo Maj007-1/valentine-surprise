@@ -305,19 +305,25 @@ const questions = [
 
 let current = 0;
 
-function start(event) {
+function start() {
   const music = document.getElementById("bgMusic");
 
-  music.muted = false;
+  // Force reset
+  music.pause();
   music.currentTime = 0;
 
-  music.play()
-    .then(() => {
-      console.log("Music started");
-    })
-    .catch(error => {
-      console.log("Playback prevented:", error);
-    });
+  // Try playing
+  const playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        console.log("Music started");
+      })
+      .catch((error) => {
+        console.log("Playback blocked:", error);
+      });
+  }
 
   document.getElementById("screen1").classList.add("hidden");
   document.getElementById("quiz").classList.remove("hidden");
@@ -431,6 +437,7 @@ function startConfetti() {
 
 </body>
 </html>
+
 
 
 
