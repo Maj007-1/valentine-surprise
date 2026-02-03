@@ -177,8 +177,7 @@ button {
 
 <body>
 
-<audio id="bgMusic" loop>
-  <!-- Replace with your own mp3 -->
+<audio id="bgMusic" loop preload="auto">
   <source src="./music.mp3" type="audio/mpeg">
 </audio>
 
@@ -191,7 +190,7 @@ button {
   <div id="screen1">
     <h1>Hii Kittuuuu 💕</h1>
     <h2>I have something cute for you...</h2>
-    <button class="primary" onclick="start()">Let's Go 🥰</button>
+    <button class="primary" onclick="start(event)">Let's Go 🥰</button>
   </div>
 
   <div id="quiz" class="hidden">
@@ -291,18 +290,18 @@ const questions = [
 
 let current = 0;
 
-function start() {
+function start(event) {
   const music = document.getElementById("bgMusic");
 
-  // Force load before play
-  music.load();
+  music.muted = false;
+  music.currentTime = 0;
 
   music.play()
     .then(() => {
-      console.log("Music started successfully");
+      console.log("Music started");
     })
     .catch(error => {
-      console.log("Music failed:", error);
+      console.log("Playback prevented:", error);
     });
 
   document.getElementById("screen1").classList.add("hidden");
@@ -417,4 +416,5 @@ function startConfetti() {
 
 </body>
 </html>
+
 
