@@ -177,7 +177,7 @@ button {
 
 <body>
 
-<audio id="bgMusic" loop preload="auto">
+<audio id="bgMusic" loop controls>
   <source src="./music.mp3" type="audio/mpeg">
 </audio>
 
@@ -190,8 +190,10 @@ button {
   <div id="screen1">
     <h1>Hii Kittuuuu 💕</h1>
     <h2>I have something cute for you...</h2>
-    <button class="primary" onclick="start(); document.getElementById('bgMusic').play();">
+   <button class="primary" onclick="start(); playMusic();">
   Let's Go 🥰
+</button>
+
 </button>
 
   </div>
@@ -220,21 +222,7 @@ button {
 
 
 <script>
-// 🔊 Unlock audio on first user interaction (required by browsers)
-document.addEventListener("click", function unlockAudio() {
-  const audio = document.getElementById("bgMusic");
-  if (!audio) return;
-
-  audio.play()
-    .then(() => {
-      audio.pause();
-      audio.currentTime = 0;
-    })
-    .catch(() => {});
-
-  document.removeEventListener("click", unlockAudio);
-});
-
+  
 let heartInterval;
 
 function createFloatingHearts() {
@@ -421,6 +409,7 @@ function startConfetti() {
 
 </body>
 </html>
+
 
 
 
