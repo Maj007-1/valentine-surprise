@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Kittuuuu 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #ffd6f6, #d9b3ff, #ffe6fa, #e5ccff);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  color: #5e2a84;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  width: 90%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+button {
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  margin: 10px 0;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.optionBtn {
+  background: rgba(255,255,255,0.8);
+  color: #a64ac9;
+}
+
+.optionBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 153, 221, 0.8);
+}
+
+.primary {
+  background: linear-gradient(45deg, #ff99dd, #c77dff);
+  color: white;
+}
+
+.primary:hover {
+  box-shadow: 0 0 20px rgba(199,125,255,0.8);
+}
+
+.hidden {
+  display: none;
+}
+
+
+.heart {
+  position: fixed;
+  font-size: 30px;
+  animation: heartPop 0.8s ease forwards;
+}
+
+@keyframes heartPop {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  50% { transform: translate(-50%, -80%) scale(1.3); opacity: 1; }
+  100% { transform: translate(-50%, -120%) scale(0.8); opacity: 0; }
+}
+
+
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.celebrationCard {
+  text-align: center;
+  animation: celebrationFade 0.8s ease forwards;
+}
+
+@keyframes celebrationFade {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.celebrateTitle {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.celebrateSub {
+  font-size: 16px;
+  margin-bottom: 25px;
+  opacity: 0.85;
+}
+
+.bouquetWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.bouquetWrapper::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(255, 153, 221, 0.4), transparent);
+  border-radius: 50%;
+  filter: blur(20px);
+}
+
+.bouquet {
+  width: 180px;
+  animation: floatBouquet 3s ease-in-out infinite;
+}
+
+@keyframes floatBouquet {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <!-- Replace with your own mp3 -->
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="confetti"></canvas>
+<div id="floatingHearts"></div>
+
+
+<div class="container">
+
+  <div id="screen1">
+    <h1>Hii Kittuuuu 💕</h1>
+    <h2>I have something cute for you...</h2>
+    <button class="primary" onclick="start()">Let's Go 🥰</button>
+  </div>
+
+  <div id="quiz" class="hidden">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+  </div>
+
+  <div id="finalScreen" class="hidden">
+    <h2 id="proposalText"></h2>
+    <button class="primary" onclick="yesClicked()">YES 😍</button>
+    <button id="noBtn" onclick="changeNo()">NO 🙈</button>
+  </div>
+
+  <div id="celebration" class="hidden celebrationCard">
+  <h1 class="celebrateTitle">Yayyyyy Kittuuuuuu 💖</h1>
+  <p class="celebrateSub">
+    You just made me the happiest person alive 🥹
+  </p>
+
+  <div class="bouquetWrapper">
+    <img src="https://pngimg.com/uploads/bouquet/bouquet_PNG37.png" class="bouquet">
+  </div>
+</div>
+
+
+<script>
+let heartInterval;
+
+function createFloatingHearts() {
+  heartInterval = setInterval(() => {
+    const heart = document.createElement("div");
+    heart.innerText = "💗";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "-30px";
+    heart.style.fontSize = Math.random() * 15 + 20 + "px";
+    heart.style.opacity = "0.6";
+    heart.style.zIndex = "0";
+    heart.style.pointerEvents = "none";
+    heart.style.animation = "floatUp 7s linear forwards";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+  }, 900);
+}
+
+
+createFloatingHearts();
+
+function typeWriter(text, elementId, speed = 40) {
+  let i = 0;
+  const el = document.getElementById(elementId);
+  el.innerHTML = "";
+  function typing() {
+    if (i < text.length) {
+      el.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
+
+const questions = [
+{
+  q: "When was our first kiss? 💋",
+  options: ["24th December 2023", "25 December 2023", "31st December 2023"],
+  answer: 0
+},
+{
+  q: "What did we eat at LEO hotel? 🍕",
+  options: ["Margeritta Pizza & Thick Shake & Fruit Shake", "Italian Pizza & Mojito + Fruit Shake", "Spagetti & Fries + Mojito"],
+  answer: 1
+},
+{
+  q: "What did you love doing in the bus? 🚌",
+  options: ["Hearing Music 🎧", "Holding my hand 💞", "Sleeping on my Shoulder😴"],
+  answer: 1
+},
+{
+  q: "Our first movie together? 🎬",
+  options: ["Animal", "Pathaan", "KGF"],
+  answer: 0
+},
+{
+  q: "Where did we go for that long bike ride? 🏍️",
+  options: ["Bhavnath", "Bhadar Dam", "Jnd"],
+  answer: 1
+},
+{
+  q: "What were you surprised about at the bus station? 🌸",
+  options: ["My Outfit", "That I love anime too", "That I listen to music"],
+  answer: 1
+}
+];
+
+let current = 0;
+
+function start() {
+  const music = document.getElementById("bgMusic");
+
+  // Force load before play
+  music.load();
+
+  music.play()
+    .then(() => {
+      console.log("Music started successfully");
+    })
+    .catch(error => {
+      console.log("Music failed:", error);
+    });
+
+  document.getElementById("screen1").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+
+  loadQuestion();
+}
+
+
+function loadQuestion() {
+  document.getElementById("question").innerText = questions[current].q;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  questions[current].options.forEach((option, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = option;
+    btn.className = "optionBtn";
+    btn.onclick = () => checkAnswer(index, btn);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(index, btn) {
+  if (index === questions[current].answer) {
+    showHeart(btn);
+    setTimeout(() => {
+      current++;
+      if (current < questions.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("finalScreen").classList.remove("hidden");
+typeWriter(
+  "Hii Kittuuuu, you already know how deeply in love I am with you. Every little memory with you means everything to me. So… will you be my Valentine? 💖",
+  "proposalText"
+);
+      }
+    }, 600);
+  } else {
+    btn.classList.add("shake");
+    setTimeout(() => btn.classList.remove("shake"), 300);
+  }
+}
+
+function showHeart(element) {
+  const rect = element.getBoundingClientRect();
+
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.position = "fixed";
+  heart.style.left = rect.left + rect.width / 2 + "px";
+  heart.style.top = rect.top + rect.height / 2 + "px";
+  heart.style.transform = "translate(-50%, -50%)";
+  
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 800);
+}
+
+
+let noTexts = ["You sure? 😜", "Think again 🙈", "Really?? 🥺", "Last chance 😏"];
+let noIndex = 0;
+
+function changeNo() {
+  const btn = document.getElementById("noBtn");
+  btn.style.position = "absolute";
+  btn.style.top = Math.random() * 70 + "%";
+  btn.style.left = Math.random() * 60 + "%";
+}
+
+function yesClicked() {
+  clearInterval(heartInterval); // stops floating hearts
+  document.getElementById("finalScreen").classList.add("hidden");
+  document.getElementById("celebration").classList.remove("hidden");
+  startConfetti();
+}
+
+
+/* Confetti */
+function startConfetti() {
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let pieces = [];
+  for (let i = 0; i < 120; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 6 + 2
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#ff66cc";
+    pieces.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      p.y += 2;
+      if (p.y > canvas.height) p.y = 0;
+    });
+  }
+
+  setInterval(draw, 20);
+}
+</script>
+
+</body>
+</html>
