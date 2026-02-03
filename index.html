@@ -217,6 +217,21 @@ button {
 
 
 <script>
+// 🔊 Unlock audio on first user interaction (required by browsers)
+document.addEventListener("click", function unlockAudio() {
+  const audio = document.getElementById("bgMusic");
+  if (!audio) return;
+
+  audio.play()
+    .then(() => {
+      audio.pause();
+      audio.currentTime = 0;
+    })
+    .catch(() => {});
+
+  document.removeEventListener("click", unlockAudio);
+});
+
 let heartInterval;
 
 function createFloatingHearts() {
@@ -416,5 +431,6 @@ function startConfetti() {
 
 </body>
 </html>
+
 
 
