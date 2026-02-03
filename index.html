@@ -194,8 +194,6 @@ button {
   Let's Go 🥰
 </button>
 
-</button>
-
   </div>
 
   <div id="quiz" class="hidden">
@@ -295,6 +293,14 @@ const questions = [
 ];
 
 let current = 0;
+
+function playMusic() {
+  const music = document.getElementById("bgMusic");
+  music.volume = 1;
+  music.muted = false;
+  music.currentTime = 0;
+  music.play();
+}
 
 function start() {
   document.getElementById("screen1").classList.add("hidden");
@@ -409,6 +415,7 @@ function startConfetti() {
 
 </body>
 </html>
+
 
 
 
