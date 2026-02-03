@@ -190,7 +190,10 @@ button {
   <div id="screen1">
     <h1>Hii Kittuuuu 💕</h1>
     <h2>I have something cute for you...</h2>
-    <button class="primary" onclick="start(event)">Let's Go 🥰</button>
+    <button class="primary" onclick="start(); document.getElementById('bgMusic').play();">
+  Let's Go 🥰
+</button>
+
   </div>
 
   <div id="quiz" class="hidden">
@@ -306,25 +309,6 @@ const questions = [
 let current = 0;
 
 function start() {
-  const music = document.getElementById("bgMusic");
-
-  // Force reset
-  music.pause();
-  music.currentTime = 0;
-
-  // Try playing
-  const playPromise = music.play();
-
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => {
-        console.log("Music started");
-      })
-      .catch((error) => {
-        console.log("Playback blocked:", error);
-      });
-  }
-
   document.getElementById("screen1").classList.add("hidden");
   document.getElementById("quiz").classList.remove("hidden");
 
@@ -437,6 +421,7 @@ function startConfetti() {
 
 </body>
 </html>
+
 
 
 
